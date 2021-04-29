@@ -16,6 +16,7 @@
         $DraftPath
     )
 
+    $privatePath = "$(Split-Path -Path $PSScriptRoot -Parent)\Private"
     $tentativePublishDate = Get-Date (Get-Date).AddDays(5) -Format yyyy-MM-dd
     $articleUrl = "${tentativePublishDate}-$($Title.ToLower() -replace ' ','-')"
     $draftObject = [Ordered]@{
@@ -29,28 +30,12 @@
     }
 
      $articleMeta = ConvertTo-Yaml $draftObject
+     $draftContent = Get-Content -Path "$privatePath\draftContent.txt" -Raw
      $articleHeader = @"
 ---
 $articleMeta
 ---
-### Heading - First Level
-All First level headings should start at H3 level.
-
-#### Heading - Second Level
-This is a second level heading.
-
-### Code Snippets
-Always enclose code snippets between a pair of ``````.
-
-```
-Get-ChildItem -Path C:\
-```
-### Images
-Avoid images as much as possible. Instead, paste console output directly when dealing with command console.
-If you must use images, always provide PNG format and insert the images using ```![](/images/thisisanimage.png)```
-
-### Videos
-You can insert YouTube videos using ```{{< youtube pxs-uk-XOws >}}```
+$draftContent
 "@
 
     $articleHeader | Out-File -FilePath "$DraftPath\${articleUrl}.md" -Force
