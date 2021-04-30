@@ -9,5 +9,5 @@ function Show-PSMagArticleTag
     $tagUrl = 'http://localhost:1313/tags/index.xml'
     $tags = Invoke-RestMethod -Uri $tagUrl -UseBasicParsing -ErrorAction Stop
 
-    $tags | Select-Object title, link
+    $tags | Select-Object @{Name="Tag";Expression={$_.title}}, link
 }

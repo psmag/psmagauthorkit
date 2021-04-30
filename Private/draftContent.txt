@@ -5,7 +5,7 @@ All First level headings should start at H3 level.
 This is a second level heading.
 
 ### Code Snippets
-Always enclose code snippets between a pair of ``````.
+Always enclose code snippets between a pair of ```.
 
 ```
 Get-ChildItem -Path C:\
@@ -15,4 +15,5 @@ Avoid images as much as possible. Instead, paste console output directly when de
 If you must use images, always provide PNG format and insert the images using ```![](/images/thisisanimage.png)```
 
 ### Videos
-You can insert YouTube videos using ```{{< youtube pxs-uk-XOws >}}```
+You can insert YouTube videos using [https://gohugo.io/content-management/shortcodes/#youtube](YouTube Hugo shortcode).
+{{< youtube pxs-uk-XOws >}}

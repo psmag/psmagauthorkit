@@ -13,20 +13,29 @@
 
         [Parameter(Mandatory = $true)]
         [String]
-        $DraftPath
+        $DraftPath,
+
+        [Parameter()]
+        [String[]]
+        $Category = @(),
+
+        [Parameter()]
+        [String[]]
+        $Tag = @()
     )
 
     $privatePath = "$(Split-Path -Path $PSScriptRoot -Parent)\Private"
     $tentativePublishDate = Get-Date (Get-Date).AddDays(5) -Format yyyy-MM-dd
-    $articleUrl = "${tentativePublishDate}-$($Title.ToLower() -replace ' ','-')"
+    $articleFileName = "${tentativePublishDate}-$($Title.ToLower().replace(' ','-')).md"
+    $articleUrl = "/$(($tentativePublishDate).Replace('-','/'))/$($Title.ToLower() -replace ' ','-')/"
     $draftObject = [Ordered]@{
         title = $Title
         author = $AuthorName
         type = 'regular'
         date = $tentativePublishDate
         url = $articleUrl
-        categories = @()
-        tags = @()
+        categories = $Category
+        tags = $Tag
     }
 
      $articleMeta = ConvertTo-Yaml $draftObject
@@ -38,6 +47,6 @@ $articleMeta
 $draftContent
 "@
 
-    $articleHeader | Out-File -FilePath "$DraftPath\${articleUrl}.md" -Force
+    $articleHeader | Out-File -FilePath "$DraftPath\${articleFileName}" -Encoding utf8 -Force
 }
 
