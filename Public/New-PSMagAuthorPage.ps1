@@ -52,7 +52,7 @@ function New-PSMagAuthorPage
         $AuthorPagePath
     )
 
-    $authorFileBaseName = "$($AuthorName.toLower().Replace(' ','-'))"
+    $authorFileBaseName = "$($AuthorName.toLower().Replace('"','').Replace('(','').Replace(')','').Replace(' ','-'))"
     $authorImage = "${authorFileBaseName}.jpg"
     if ($Email)
     {
@@ -104,5 +104,5 @@ $authorMeta
 $Description
 "@
 
-    $authorPage | Out-File -FilePath "$AuthorPagePath\${authorFileBaseName}.md" -Force
+    $authorPage | Out-File -FilePath "$AuthorPagePath\${authorFileBaseName}.md" -Encoding utf8 -Force
 }
