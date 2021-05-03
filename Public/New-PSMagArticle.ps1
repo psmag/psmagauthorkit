@@ -36,6 +36,7 @@
         url = $articleUrl
         categories = $Category
         tags = $Tag
+        draft = $true
     }
 
      $articleMeta = ConvertTo-Yaml $draftObject
