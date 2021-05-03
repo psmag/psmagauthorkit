@@ -26,8 +26,11 @@
 
     $privatePath = "$(Split-Path -Path $PSScriptRoot -Parent)\Private"
     $tentativePublishDate = Get-Date (Get-Date).AddDays(5) -Format yyyy-MM-dd
-    $articleFileName = "${tentativePublishDate}-$($Title.ToLower().replace(' ','-')).md"
-    $articleUrl = "/$(($tentativePublishDate).Replace('-','/'))/$($Title.ToLower() -replace ' ','-')/"
+    $cleanTitle = ($Title -replace '[^a-zA-Z0-9\s]', '') -replace '[^a-zA-Z0-9]','-'
+
+    $articleFileName = "${tentativePublishDate}-${cleanTitle}.md"
+    $articleUrl = "/$(($tentativePublishDate).Replace('-','/'))/${cleanTitle}/"
+    
     $draftObject = [Ordered]@{
         title = $Title
         author = $AuthorName
@@ -50,4 +53,3 @@ $draftContent
 
     $articleHeader | Out-File -FilePath "$DraftPath\${articleFileName}" -Encoding utf8 -Force
 }
-

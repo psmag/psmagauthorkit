@@ -52,7 +52,7 @@ function New-PSMagAuthorPage
         $AuthorPagePath
     )
 
-    $authorFileBaseName = "$($AuthorName.toLower().Replace('"','').Replace('(','').Replace(')','').Replace(' ','-'))"
+    $authorFileBaseName = "$($AuthorName.toLower() -replace '[^a-zA-Z0-9]','-')"
     $authorImage = "${authorFileBaseName}.jpg"
     if ($Email)
     {
