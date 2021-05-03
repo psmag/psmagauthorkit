@@ -1,5 +1,4 @@
-function Get-GravatarProfile
-{
+function Get-GravatarProfile {
     [CmdletBinding()]
     param 
     (
@@ -20,25 +19,21 @@ function Get-GravatarProfile
     $string = $Email.ToLower()
     $md5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
     $utf8 = New-Object -TypeName System.Text.UTF8Encoding
-    $hash = ([System.BitConverter]::ToString($md5.ComputeHash($utf8.GetBytes($string)))).ToLower().Replace('-','')
+    $hash = ([System.BitConverter]::ToString($md5.ComputeHash($utf8.GetBytes($string)))).ToLower().Replace('-', '')
 
     # Create a request for profile JSON
     $profileUrl = "https://gravatar.com/${hash}.json"
     $response = Invoke-RestMethod -Uri $profileUrl -UseBasicParsing -ErrorAction SilentlyContinue
 
-    if ($response)
-    {
-        if ($Passthru)
-        {
+    if ($response) {
+        if ($Passthru) {
             return $response.entry
         }
-        else
-        {
+        else {
             $response.entry | ConvertTo-Json | Out-File -FilePath $Path -Force
         }
     }
-    else
-    {
+    else {
         throw "Specified email has no associated Gravatar profile"    
     }
 }

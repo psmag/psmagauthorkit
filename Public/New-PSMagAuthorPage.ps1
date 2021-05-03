@@ -1,5 +1,4 @@
-function New-PSMagAuthorPage
-{
+function New-PSMagAuthorPage {
     [CmdletBinding()]
     param
     (
@@ -37,7 +36,7 @@ function New-PSMagAuthorPage
 
         [Parameter()]
         [String]
-        $Blog ='#',
+        $Blog = '#',
 
         [Parameter()]
         [String]
@@ -54,17 +53,16 @@ function New-PSMagAuthorPage
 
     $authorFileBaseName = "$($AuthorName.toLower() -replace '[^a-zA-Z0-9]','-')"
     $authorImage = "${authorFileBaseName}.jpg"
-    if ($Email)
-    {
+    if ($Email) {
         # Get gravatar image
         Get-GravatarImage -Email $Email -Path "${AuthorPagePath}\${authorImage}"
     }
 
     $authorObject = [Ordered]@{
-        title = $AuthorName
+        title       = $AuthorName
         description = $Tagline
-        image = "/images/author/${authorImage}"
-        social = @(
+        image       = "/images/author/${authorImage}"
+        social      = @(
             [Ordered]@{
                 icon = "fab fa-facebook"
                 link = "https://facebook.com/${facebook}"
