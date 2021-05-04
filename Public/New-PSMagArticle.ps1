@@ -26,7 +26,7 @@
 
     $privatePath = "$(Split-Path -Path $PSScriptRoot -Parent)\Private"
     $tentativePublishDate = Get-Date (Get-Date).AddDays(5) -Format yyyy-MM-dd
-    $cleanTitle = ($Title -replace '[^a-zA-Z0-9\s]', '') -replace '[^a-zA-Z0-9]', '-'
+    $cleanTitle = (($Title -replace '[^a-zA-Z0-9\s]', '') -replace '[^a-zA-Z0-9]', '-').ToLower()
 
     $articleFileName = "${tentativePublishDate}-${cleanTitle}.md"
     $articlePath = Join-Path -Path $DraftPath -ChildPath $articleFileName
